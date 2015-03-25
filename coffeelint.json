@@ -1,0 +1,12 @@
+{
+  "max_line_length": {
+    "name": "max_line_length",
+    "level": "ignore"
+  },
+  "no_trailing_whitespace": {
+    "name": "no_trailing_whitespace",
+    "level": "warn",
+    "allowed_in_comments": true,
+    "allowed_in_empty_lines": true
+  }
+}

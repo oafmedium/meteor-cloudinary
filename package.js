@@ -10,4 +10,6 @@ Package.onUse(function(api) {
   api.versionsFrom('1.0.4.2');
   api.use('coffeescript');
   api.addFiles('cloudinary.coffee');
+  api.addFiles('cloudinary_js/js/jquery.cloudinary.js', 'client');
+  api.export('Cloudinary');
 });

@@ -1,0 +1,3 @@
+[submodule "cloudinary_js"]
+	path = cloudinary_js
+	url = git@github.com:cloudinary/cloudinary_js.git
