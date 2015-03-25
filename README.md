@@ -6,7 +6,7 @@ This package provides access to the powerful image transformation API of [Cloudi
 Enter in your Meteor app directory:
 
 ```bash
-$ meteor add aldeed:collection2
+$ meteor add oaf:cloudinary
 ```
 
 ## Authentication
