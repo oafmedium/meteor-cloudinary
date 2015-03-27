@@ -13,6 +13,14 @@ Package.onUse(function(api) {
   api.addFiles("client.coffee", "client");
   api.addFiles("helpers.coffee", "client");
   api.addFiles("server.coffee", "server");
-  api.addFiles("cloudinary_js/js/jquery.cloudinary.js", "client");
+  api.addFiles([
+    "cloudinary_js/js/jquery.fileupload.js",
+    "cloudinary_js/js/load-image.min.js",
+    "cloudinary_js/js/canvas-to-blob.min.js",
+    "cloudinary_js/js/jquery.fileupload-process.js",
+    "cloudinary_js/js/jquery.fileupload-image.js",
+    "cloudinary_js/js/jquery.fileupload-validate.js",
+    "cloudinary_js/js/jquery.cloudinary.js"
+  ], "client");
   api.export("Cloudinary");
 });
