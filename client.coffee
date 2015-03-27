@@ -39,31 +39,56 @@ class CloudinaryConnection
     upload = @getUpload uploadId
     @uploads[uploadId].set _.extend upload, files: _.reject upload.files, (file) -> file._id is fileId
 
+  removeUploads: (uploadId) ->
+    @uploads[uploadId].set files: []
+
   upload: (selector, options = {}, callback) ->
     if @uploads[selector]
       $("[data-selector='#{selector}']").remove()
       $(selector).off 'click'
-    _.extend options,
-      # add: @_handleUploadData
-      # submit: @_handleUploadData
-      # send: @_handleUploadData
-      # change: @_handleUploadData
-      done: (event, data) =>
-        console.log "#{event.type}: ", arguments
-        file = @get data.response().result.public_id, data.response().result
+
+    events =
+      fileuploadadd: (event, data) =>
+        upload = @getUpload(selector)
+        upload.previews ?= []
+        upload.previews.push data.files[0]
+        data.files[0]._id = Meteor.uuid()
+        @uploads[selector].set upload
+      fileuploadprogress: (event, data) =>
+        upload = @getUpload(selector)
+        upload.previews = _.map upload.previews, (preview) ->
+          if data.files[0]._id is preview._id
+            preview.progress =
+              loaded: data.loaded
+              total: data.total
+          preview
+        @uploads[selector].set upload
+        callback? file
+      fileuploaddone: (event, data) =>
+        properties = data.response().result
+        properties.name = data.files[0].name
+        file = @get data.response().result.public_id, properties
         upload = @getUpload(selector)
         upload.files ?= []
         upload.files.push file
+        upload.previews = _.reject upload.previews, (preview) -> data.files[0]._id is preview._id
         @uploads[selector].set upload
         callback? file
-      change: => input.unsigned_cloudinary_upload(@preset, cloud_name: @cloudName, options)
+      # submit: @_handleUploadData
+      # send: @_handleUploadData
+      # change: @_handleUploadData
       # fail: @_handleUploadData
       # progress: @_handleUploadData
       # start: @_handleUploadData
       # stop: @_handleUploadData
-    input = $('<input/>').attr({type: "file", name: "file"}).unsigned_cloudinary_upload(@preset, cloud_name: @cloudName, options)
+
+    _.extend options,
+      change: => input.unsigned_cloudinary_upload(@preset, cloud_name: @cloudName, options).bind events
+
+    input = $('<input/>').attr({type: "file", name: "file"}).unsigned_cloudinary_upload(@preset, (cloud_name: @cloudName), options).bind events
     form = $('<form>').attr('data-selector', selector).hide().append input
     $('body').append form
+
     $(selector).on 'click', -> input.click()
 
     @getUpload(selector)
@@ -82,14 +107,17 @@ class CloudinaryFile
     width: 0
 
   constructor: (fileId, @connection = {}, properties) ->
-    # TODO: Handle names with dots
+    # TODO: Handle names without format but with dots
     fileNameParts = fileId.split('.')
-    @_id = fileNameParts[0]
-    properties?.fetched = true
-    @properties = @connection.files[@_id] ?= new ReactiveVar properties or {}
+
     transformationDefaults =
       format: fileNameParts[fileNameParts.length - 1] if fileNameParts.length > 1
     @transformations = new ReactiveVar transformationDefaults or {}
+    fileNameParts.pop() if fileNameParts.length > 1
+    @_id = fileNameParts.join('.')
+    properties?.fetched = true
+    @properties = @connection.files[@_id] ?= new ReactiveVar properties or {}
+
     return this
 
   property: (key, value) ->
@@ -146,9 +174,16 @@ class CloudinaryFile
 
   createdAt: (value) -> @property 'created_at', value
 
+  resourceType: -> @property 'resource_type'
+
+  name: -> @property 'name'
+
   url: (options = {}) ->
     options = options.hash if options?.hash
-    options = _.defaults options, @transformations.get(), cloud_name: @connection.cloudName
+    defaults =
+      resource_type: @resourceType()
+      format: @format()
+    options = _.defaults options, @transformations.get(), cloud_name: @connection.cloudName, defaults
     $.cloudinary.url @_id, options
 
 
