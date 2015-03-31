@@ -63,7 +63,7 @@ class CloudinaryConnection
               total: data.total
           preview
         @uploads[selector].set upload
-        callback? file
+        # callback? file
       fileuploaddone: (event, data) =>
         properties = data.response().result
         properties.name = data.files[0].name
