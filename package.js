@@ -9,7 +9,7 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom("1.0.4.2");
   api.use(["coffeescript", "http", "reactive-var"]);
-  api.use(["ui","templating","spacebars"], "client");
+  api.use(["ui","templating","spacebars", "jquery", "underscore"], "client");
   api.addFiles("client.coffee", "client");
   api.addFiles("helpers.coffee", "client");
   api.addFiles("server.coffee", "server");
