@@ -15,7 +15,7 @@ linto:jquery-ui@1.11.2
 meteor@1.1.6
 minifiers@1.1.5
 minimongo@1.0.8
-oaf:cloudinary@0.0.6
+oaf:cloudinary@0.0.7
 observe-sequence@1.0.6
 ordered-dict@1.0.3
 random@1.0.3

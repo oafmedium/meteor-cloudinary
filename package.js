@@ -1,6 +1,6 @@
 Package.describe({
   name: "oaf:cloudinary",
-  version: "0.0.6",
+  version: "0.0.7",
   summary: "Cloudinary Package for Meteor",
   git: "https://github.com/oafmedium/meteor-cloudinary.git",
   documentation: "README.md"
