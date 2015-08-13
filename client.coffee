@@ -45,7 +45,7 @@ class CloudinaryConnection
   upload: (selector, options = {}, callback) ->
     if @uploads[selector]
       $("[data-selector='#{selector}']").remove()
-      $(selector).off 'click'
+      $('body').off 'click', selector
 
     events =
       fileuploadadd: (event, data) =>
@@ -89,7 +89,7 @@ class CloudinaryConnection
     form = $('<form>').attr('data-selector', selector).hide().append input
     $('body').append form
 
-    $(selector).on 'click', -> input.click()
+    $('body').on 'click', selector, -> input.click()
 
     @getUpload(selector)
 
