@@ -8,7 +8,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom("1.1.0.3");
-  api.use(["coffeescript", "http", "reactive-var"]);
+  api.use(["coffeescript", "http", "reactive-var", "check"]);
   api.use(["ui","templating","spacebars", "jquery", "underscore", "linto:jquery-ui@1.11.2"], "client");
   api.addFiles("client.coffee", "client");
   api.addFiles("helpers.coffee", "client");
