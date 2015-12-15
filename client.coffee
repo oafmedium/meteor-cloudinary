@@ -180,10 +180,9 @@ class CloudinaryFile
 
   url: (options = {}) ->
     options = options.hash if options?.hash
-    defaults =
-      resource_type: @resourceType()
-      format: @format()
-    options = _.defaults options, @transformations.get(), cloud_name: @connection.cloudName, defaults
+    options = _.defaults options, @transformations.get(), cloud_name: @connection.cloudName
+    options.resource_type ?= @resourceType()
+    options.format ?= @format()
     $.cloudinary.url @_id, options
 
 
