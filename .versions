@@ -22,7 +22,7 @@ minifiers@1.1.7
 mizzao:build-fetcher@0.2.0
 mizzao:jquery-ui@1.11.4
 mongo-id@1.0.1
-oaf:cloudinary@0.0.11
+oaf:cloudinary@0.0.12
 observe-sequence@1.0.7
 promise@0.5.1
 random@1.0.5
