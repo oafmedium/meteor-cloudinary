@@ -9,11 +9,12 @@ Package.describe({
 Package.onUse(function(api) {
   api.versionsFrom("1.1.0.3");
   api.use(["coffeescript", "http", "reactive-var", "check"]);
-  api.use(["ui","templating","spacebars", "jquery", "underscore", "mizzao:jquery-ui@1.11.4"], "client");
+  api.use(["ui","templating","spacebars", "jquery", "underscore"], "client");
   api.addFiles("client.coffee", "client");
   api.addFiles("helpers.coffee", "client");
   api.addFiles("server.coffee", "server");
   api.addFiles([
+    'jquery-ui.js',
     "cloudinary_js/js/jquery.fileupload.js",
     "cloudinary_js/js/load-image.all.min.js",
     "cloudinary_js/js/canvas-to-blob.min.js",
