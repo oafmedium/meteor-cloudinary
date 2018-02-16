@@ -1,6 +1,6 @@
 Package.describe({
   name: "oaf:cloudinary",
-  version: "0.1.0",
+  version: "0.1.1",
   summary: "Cloudinary Package for Meteor",
   git: "https://github.com/oafmedium/meteor-cloudinary.git",
   documentation: "README.md"
@@ -8,7 +8,7 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom("1.6.1");
-  api.use(["coffeescript@2.0.0", "http", "reactive-var", "check"]);
+  api.use(["coffeescript@2.0.0", "random", "http", "reactive-var", "check"]);
   api.use(["blaze@2.3.2", "templating@1.3.2", "spacebars@1.0.15", "jquery", "underscore"], "client");
   api.addFiles("client.coffee", "client");
   api.addFiles("helpers.coffee", "client");

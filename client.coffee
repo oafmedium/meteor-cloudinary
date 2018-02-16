@@ -52,7 +52,7 @@ class CloudinaryConnection
         upload = @getUpload(selector)
         upload.previews ?= []
         upload.previews.push data.files[0]
-        data.files[0]._id = Meteor.uuid()
+        data.files[0]._id = Random.id()
         @uploads[selector].set upload
       fileuploadprogress: (event, data) =>
         upload = @getUpload(selector)

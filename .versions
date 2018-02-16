@@ -25,7 +25,7 @@ meteor@1.8.2
 modules@0.11.3
 modules-runtime@0.9.1
 mongo-id@1.0.6
-oaf:cloudinary@0.1.0
+oaf:cloudinary@0.1.1
 observe-sequence@1.0.16
 ordered-dict@1.1.0
 promise@0.10.1
